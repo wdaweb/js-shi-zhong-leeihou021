@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            background-image: url(./images/pexels-267031.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #clock {
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background-color: steelblue;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+
+        #clock2 {
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 50;
+        }
+
+
+        #inclock {
+            transform: translate(-50%, -50%);
+            width: 550px;
+            height: 550px;
+            background-color: rgb(178, 203, 223);
+            background-image: url(./images/snowman.png);
+            background-repeat: no-repeat;
+            background-size: 500px;
+            background-position-x: 150px;
+            background-position-y: 200px;
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            z-index: 1200;
+            position: relative;
+        }
+
+
+        #hour {
+            position: absolute;
+            width: 30%;
+            height: 4px;
+            background-color: violet;
+            background-repeat: no-repeat;
+            top: 50%;
+            border-radius: 2px;
+            left: 20%;
+            transform: rotate(0deg);
+            transform-origin: right center;
+            z-index: 222;
+        }
+
+        #minute {
+            position: absolute;
+            width: 40%;
+            height: 4px;
+            background: cyan;
+            top: 50%;
+            border-radius: 2px;
+            left: 10%;
+            transform: rotate(0deg);
+            transform-origin: right center;
+            z-index: 100;
+
+        }
+
+        #second {
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background-color: tomato;
+            background-size: cover;
+            top: 50%;
+            border-radius: 2px;
+            left: 0%;
+            transform: rotate(0deg);
+            transform-origin: right center;
+
+        }
+
+
+        .clock {
+            width: 596px;
+            height: 6px;
+            background: #eee;
+            position: absolute;
+            border-radius: 7px;
+            top: 298.5px;
+            left: 1.5px;
+        }
+
+        .red {
+            width: 596px;
+            height: 6px;
+            background: red;
+            position: absolute;
+            border-radius: 7px;
+            top: 298.5px;
+            left: 1.5px;
+        }
+
+        #particles-js {
+            height: 100vh;
+        }
+
+        /* #Time {
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+        } */
+
+        #showbox {
+            border: 10px solid white;
+            width: 250px;
+            height: 50px;
+            text-align: center;
+            filter: drop-shadow(0 0 5px white);
+            position: absolute;
+            left: 50%;
+            top: 30%;
+            transform: translate(-50%, 0%);
+            z-index: 10;
+            font-size: 40px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body onload="ShowTime()">
+
+    <div id="showbox"></div>
+    <div id="particles-js"></div>
+    <div id="clock2">
+        <div id="hour"></div>
+        <div id="minute"></div>
+        <div id="second"></div>
+    </div>
+    <div id="clock">
+
+        <div id="inclock" img=""></div>
+
+    </div>
+
+    <script src="particles.js">
+    </script>
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function () {
+            console.log('callback - particles.js config loaded');
+        });
+        const clock = document.getElementById("clock");
+        const clock2 = document.getElementById("clock2");
+        const hour = document.getElementById("hour");
+        const minute = document.getElementById("minute");
+        const second = document.getElementById("second");
+        const inclock = document.getElementById("inclock")
+
+        for (var i = 0; i <= 60; i++) {
+            clock.innerHTML += "<div class='clock'></div>";
+            clock.children[i].style.transform = "rotate(" + i * 6 + "deg)";
+            if (i % 55 === 5) {
+                clock.innerHTML += "<div class='red'></div>";
+            }
+            if (i % 36 === 5) {
+                clock.innerHTML += "<div class='red'></div>";
+            }
+
+        }
+
+        const setDate = () => {
+            const now = new Date();
+            hour.style.transform = `rotate(${now.getHours() * 30 + 90}deg)`;
+            minute.style.transform = `rotate(${now.getMinutes() * 6 + 90}deg)`;
+            second.style.transform = `rotate(${now.getSeconds() * 6 + 90}deg)`;
+
+
+        }
+        function ShowTime() {
+            let NowDate = new Date();
+            let h = NowDate.getHours();
+            let m = NowDate.getMinutes();
+            let s = NowDate.getSeconds();
+            document.getElementById('showbox').innerHTML = h + '時' + m + '分' + s + '秒';
+            setTimeout('ShowTime()', 1000);
+        }
+
+        setDate();
+        setInterval(setDate, 980);
+    </script>
+</body>
+
+</html>
